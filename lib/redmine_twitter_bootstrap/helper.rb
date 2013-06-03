@@ -7,6 +7,20 @@ module RedmineTwitterBootstrap
       end.html_safe
     end
 
+    def breadcrumb_tag(active, links=[])
+      content_tag(:ul, class: 'breadcrumb') do
+        links.collect do |link|
+          concat(
+            content_tag(:li) do
+              link_to(link[:caption], link[:path])  << ' ' << 
+              content_tag(:span, '/', class: 'divider') 
+            end << ' '
+          )
+        end 
+        concat(content_tag(:li, active, class: 'active'))
+      end.html_safe
+    end
+
     def icon_tag(options)
       if options[:icon]
         style = "icon-#{options[:icon]}"
